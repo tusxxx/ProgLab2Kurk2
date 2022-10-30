@@ -3,10 +3,33 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:local="clr-namespace:ProgLab2Kurk2"
+        xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="450" Width="525">
+    <Window.DataContext>
+        <local:MainViewModel />
+    </Window.DataContext>
     <Grid>
-        
+        <StackPanel Orientation="Horizontal" >
+            <oxy:PlotView Name="PlotView" Model="{Binding MyModel}" Height="320" Width="320" />
+            <StackPanel Orientation="Vertical" Width="200" >
+                <RadioButton  Content="1 polinome" Name="RadioButton1" Checked="RadioButton1_OnChecked"/>
+                <RadioButton  Content="2 polinomes" Name="RadioButton2" Checked="RadioButton2_OnChecked"/>
+                <TextBox Name="XBlock"/>
+                <TextBox Name="YBlock"/>
+                <DataGrid Name="DataGrid" Height="120" Width="64">
+                    
+                </DataGrid>
+                <Button Name="SetProperty" Click="SetProperty_OnClick" Content="AddPoint"/>
+                <Button Name="Calculate" Click="Calculate_OnClick" Content="Calculate"/>
+                <TextBlock Name="ABlock"/>
+                <TextBlock Name="BBlock"/>
+                <TextBlock Name="CBlock"/>
+                <TextBlock Name="CoeffBlock"/>
+
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>
