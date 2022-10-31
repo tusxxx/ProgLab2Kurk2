@@ -31,6 +31,7 @@ namespace ProgLab2Kurk2
 
             DataGrid.Columns.Add(col1);
             DataGrid.Columns.Add(col2);
+            RadioButton1.IsChecked = true;
         }
 
         private void SetProperty_OnClick(object sender, RoutedEventArgs e)
@@ -53,6 +54,12 @@ namespace ProgLab2Kurk2
 
         private void Calculate_OnClick(object sender, RoutedEventArgs e)
         {
+            if (DataGrid.Items.Count <= polinomes)
+            {
+                MessageBox.Show("Количество точек не должно быть меньше полинома");
+                return;
+            }
+            
             var x = new List<double>();
             var y = new List<double>();
             foreach (XY xy in DataGrid.Items)
@@ -111,8 +118,12 @@ namespace ProgLab2Kurk2
                          (xy.y - func(xy.x));
             }
 
-            var r = $"determination = {Math.Sqrt(1 - (SSres / SStot))}";
-            CoeffBlock.Text = r;
+            var r = Math.Sqrt(1 - (SSres / SStot));
+            if (double.IsNaN(r))
+            {
+                r = 1;
+            }
+            CoeffBlock.Text = $"determination = {r}";
             if (_plotModel.Series.Any(series => series is FunctionSeries))
             {
                 _plotModel.Series.Remove(_plotModel.Series.First(series => series is FunctionSeries));
